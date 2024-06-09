@@ -12,7 +12,8 @@ func (register *LWWRegister) Merge(remoteState State) {
 	if localState.timestamp > remoteState.timestamp {
 		return
 	}
-	if localState.timestamp == remoteState.timestamp && localState.peer > remoteState.peer {
+	if localState.timestamp == remoteState.timestamp &&
+		localState.user.Id() > remoteState.user.Id() {
 		return
 	}
 
