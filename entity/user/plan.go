@@ -13,6 +13,10 @@ const (
 var plans map[string]plan
 
 func initPlans() {
+	if plans != nil {
+		return
+	}
+
 	plans = map[string]plan{
 		FREE:  {name: FREE, level: 1},
 		JJANG: {name: JJANG, level: 2},
@@ -20,19 +24,15 @@ func initPlans() {
 }
 
 func Free() plan {
-	if plans == nil {
-		initPlans()
-	}
+	initPlans()
 	return plans[FREE]
 }
 
 func Jjang() plan {
-	if plans == nil {
-		initPlans()
-	}
+	initPlans()
 	return plans[JJANG]
 }
 
-func (plan plan) IsBetter(another plan) bool {
+func (plan *plan) IsBetter(another *plan) bool {
 	return plan.level > another.level
 }
