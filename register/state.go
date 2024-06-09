@@ -1,9 +1,12 @@
 package register
 
-import "guestbook/rgb"
+import (
+	entities "guestbook/entity/user"
+	"guestbook/rgb"
+)
 
 type State struct {
-	peer      string
+	user      entities.User
 	timestamp uint
 	value     rgb.RGB
 }
