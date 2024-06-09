@@ -1,12 +1,12 @@
 package register
 
 import (
-	entities "guestbook/entity/user"
+	entity "guestbook/entity/user"
 	"guestbook/rgb"
 )
 
 type State struct {
-	user      entities.User
+	user      entity.User
 	timestamp uint
 	value     rgb.RGB
 }
