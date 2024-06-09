@@ -1,7 +1,9 @@
 package register
 
+import "guestbook/entity"
+
 type RGBMap struct {
-	id   string
+	id   entity.Id
 	data map[string]LWWRegister
 }
 
