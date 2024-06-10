@@ -33,6 +33,10 @@ func Jjang() plan {
 	return plans[JJANG]
 }
 
-func (plan *plan) IsBetter(another *plan) bool {
+func (plan *plan) IsHigher(another *plan) bool {
 	return plan.level > another.level
+}
+
+func (plan *plan) IsEquals(another *plan) bool {
+	return plan.level == another.level
 }
