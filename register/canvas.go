@@ -2,11 +2,9 @@ package register
 
 import (
 	"guestbook/entity"
-	"guestbook/entity/user"
 )
 
 type Canvas struct {
-	id    entity.ID
-	owner user.User
-	data  map[uint32]LWWRegister
+	id   entity.ID
+	data map[uint32]LWWRegister
 }
