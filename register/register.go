@@ -1,7 +1,6 @@
 package register
 
 type LWWRegister struct {
-	id    string
 	state *State
 }
 
