@@ -1,29 +1,13 @@
 package register
 
-import "guestbook/rgb"
-
 type LWWRegister struct {
 	id    string
 	state *State
 }
 
-func (register *LWWRegister) Merge(remoteState State) {
-	localState := *register.state
-	if localState.timestamp > remoteState.timestamp {
-		return
+func (register *LWWRegister) Merge(remoteState *State) {
+	state := *register.state
+	if state.isWin(remoteState) {
+		state.SetColor(remoteState.color)
 	}
-	if localState.timestamp == remoteState.timestamp &&
-		localState.user.Id() < remoteState.user.Id() {
-		return
-	}
-
-	localState.value = remoteState.value
-}
-
-func (register *LWWRegister) Value() rgb.RGB {
-	return register.state.value
-}
-
-func (register *LWWRegister) SetValue(rgb rgb.RGB) {
-	register.state.value = rgb
 }
