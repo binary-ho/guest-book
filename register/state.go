@@ -18,7 +18,7 @@ func (state *State) SetColor(rgb rgb.RGB) {
 func (state *State) isWin(remoteState *State) bool {
 	if isTimestampBigger(state, remoteState) ||
 		isPlanHigher(state, remoteState) ||
-		isIdLower(state, remoteState) {
+		isIDLower(state, remoteState) {
 		return true
 	}
 	return false
@@ -35,10 +35,10 @@ func isPlanHigher(state *State, remoteState *State) bool {
 		plan.IsHigher(&remotePlan)
 }
 
-func isIdLower(state *State, remoteState *State) bool {
+func isIDLower(state *State, remoteState *State) bool {
 	plan := state.user.Plan()
 	remotePlan := remoteState.user.Plan()
 	return state.timestamp == remoteState.timestamp &&
 		plan.IsEquals(&remotePlan) &&
-		state.user.Id() < remoteState.user.Id()
+		state.user.ID() < remoteState.user.ID()
 }

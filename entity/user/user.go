@@ -3,11 +3,11 @@ package entity
 import "guestbook/entity"
 
 type User struct {
-	id   entity.Id
+	id   entity.ID
 	plan plan
 }
 
-func (user *User) Id() entity.Id {
+func (user *User) ID() entity.ID {
 	return user.id
 }
 
