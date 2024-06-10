@@ -3,7 +3,7 @@ package register
 import "guestbook/entity"
 
 type RGBMap struct {
-	id   entity.Id
+	id   entity.ID
 	data map[string]LWWRegister
 }
 

@@ -1,3 +1,3 @@
 package entity
 
-type Id uint
+type ID uint
