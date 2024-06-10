@@ -6,9 +6,9 @@ import (
 )
 
 type State struct {
-	user      entity.User
-	timestamp uint32
-	color     rgb.RGB
+	color          rgb.RGB
+	timestamp      uint32
+	lastAccessUser entity.User
 }
 
 func (state *State) SetColor(rgb rgb.RGB) {
@@ -29,16 +29,16 @@ func isTimestampBigger(state *State, remoteState *State) bool {
 }
 
 func isPlanHigher(state *State, remoteState *State) bool {
-	plan := state.user.Plan()
-	remotePlan := remoteState.user.Plan()
+	plan := state.lastAccessUser.Plan()
+	remotePlan := remoteState.lastAccessUser.Plan()
 	return state.timestamp == remoteState.timestamp &&
 		plan.IsHigher(&remotePlan)
 }
 
 func isIDLower(state *State, remoteState *State) bool {
-	plan := state.user.Plan()
-	remotePlan := remoteState.user.Plan()
+	plan := state.lastAccessUser.Plan()
+	remotePlan := remoteState.lastAccessUser.Plan()
 	return state.timestamp == remoteState.timestamp &&
 		plan.IsEquals(&remotePlan) &&
-		state.user.ID() < remoteState.user.ID()
+		state.lastAccessUser.ID() < remoteState.lastAccessUser.ID()
 }
