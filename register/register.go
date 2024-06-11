@@ -1,13 +1,15 @@
 package register
 
 type LWWRegister struct {
-	id    string
 	state *State
 }
 
 func (register *LWWRegister) Merge(remoteState *State) {
-	state := *register.state
-	if state.isWin(remoteState) {
+	if remoteState == nil {
+		return
+	}
+
+	if state := *register.state; state.isWin(remoteState) {
 		state.SetColor(remoteState.color)
 	}
 }
