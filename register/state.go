@@ -1,7 +1,7 @@
 package register
 
 import (
-	entity "guestbook/entity/user"
+	"guestbook/entity/entity"
 	"guestbook/rgb"
 )
 
