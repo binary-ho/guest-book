@@ -1,14 +1,14 @@
 package register
 
 import (
-	"guestbook/entity/entity"
+	"guestbook/entity/user"
 	"guestbook/rgb"
 )
 
 type State struct {
 	color     rgb.RGB
-	timestamp uint32
-	owner     entity.User
+	timestamp Timestamp
+	owner     user.User
 }
 
 func (state *State) SetColor(rgb rgb.RGB) {

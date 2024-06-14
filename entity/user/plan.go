@@ -1,4 +1,4 @@
-package entity
+package user
 
 type plan struct {
 	level int8

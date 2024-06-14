@@ -1,27 +1,22 @@
 package register
 
 import (
+	"guestbook/common/coord"
 	"guestbook/entity"
 )
 
 type Canvas struct {
 	id   entity.ID
 	size size
-	data registerMap
+	data colors
 }
-
-/*
-TODO : (0, 0) 부터 시작할지 (1, 1) 부터 시작할지?
-(0, 0)은 기본값이므로 문제가 생길 수도 있음.
-일단은 (0, 0)으로 한다. (1, 1)의 경우 값을 클라이언트로 내려줄 때 까다로욱 수도 있음
-*/
-type registerMap map[uint32]LWWRegister
 
 type size struct {
-	width, height uint16
+	height coord.Y
+	width  coord.X
 }
 
-func (canvas *Canvas) Merge(y, x uint16, state *State) {
+func (canvas *Canvas) Merge(y coord.Y, x coord.X, state *State) {
 	key := canvas.getKey(y, x)
 	register, exist := canvas.data[key]
 
@@ -32,12 +27,20 @@ func (canvas *Canvas) Merge(y, x uint16, state *State) {
 	register.Merge(state)
 }
 
-func (canvas *Canvas) getKey(y, x uint16) uint32 {
+func (canvas *Canvas) getKey(y coord.Y, x coord.X) colorKey {
 	width := canvas.size.width
 	height := canvas.size.height
 	// TODO : 예외 발생으로 변경
 	if y >= height || x >= width {
 		return 0
 	}
-	return uint32(y*width + x)
+
+	position := calculatePosition(width, y, x)
+	return colorKey(position)
+}
+
+func calculatePosition(width coord.X, y coord.Y, x coord.X) uint32 {
+	a := uint32(width) * uint32(y)
+	b := uint32(x)
+	return a + b
 }

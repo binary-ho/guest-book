@@ -1,13 +1,15 @@
 package rgb
 
 type RGB struct {
-	Red, Green, Blue uint
+	Red, Green, Blue value
 }
 
-func (rgb *RGB) Get() uint {
-	return rgb.Red
-}
+type value uint8
+type Color uint32
 
-type Getter interface {
-	Get() uint
+func (rgb *RGB) GetHexColor() Color {
+	red := uint32(rgb.Red) << 16
+	green := uint32(rgb.Green) << 8
+	blue := uint32(rgb.Blue)
+	return Color(red | green | blue)
 }
