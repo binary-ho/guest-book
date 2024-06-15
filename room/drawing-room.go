@@ -10,7 +10,7 @@ type DrawingRoom struct {
 	clients  Clients
 }
 
-func OpenDrawingRoom(canvasId entity.ID, client *Client) *DrawingRoom {
+func openDrawingRoom(canvasId entity.ID, client *Client) *DrawingRoom {
 	room := &DrawingRoom{
 		canvasId: canvasId,
 		inbox:    make(chan Message),
@@ -21,7 +21,7 @@ func OpenDrawingRoom(canvasId entity.ID, client *Client) *DrawingRoom {
 
 	room.clients.Insert(client)
 	// TODO : run을 돌리면서 room 정보를 반환하는 방법?
-	room.run()
+	go room.run()
 	return room
 }
 
