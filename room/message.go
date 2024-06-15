@@ -8,5 +8,5 @@ import (
 type Message struct {
 	user      user.User
 	timestamp register.Timestamp
-	pixels    []register.PixelData
+	pixels    []PixelData
 }
