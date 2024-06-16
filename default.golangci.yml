@@ -156,7 +156,7 @@ linters:
     - unused # checks Go code for unused constants, variables, functions and types
     - bidichk # checks for dangerous unicode character sequences
     - bodyclose # checks whether HTTP response body is closed successfully
-    - contextcheck # check the function whether use a non-inherited context
+    - contextcheck # check the function whether you use a non-inherited context
     - dupl # code clone detection
     - durationcheck # check for two durations multiplied together
     - errname # checks that sentinel errors are prefixed with the Err and error types are suffixed with the Error
