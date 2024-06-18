@@ -23,12 +23,12 @@ func initPlans() {
 	}
 }
 
-func Free() plan {
+func FreePlan() plan {
 	initPlans()
 	return plans[FREE]
 }
 
-func Jjang() plan {
+func JjangPlan() plan {
 	initPlans()
 	return plans[JJANG]
 }
