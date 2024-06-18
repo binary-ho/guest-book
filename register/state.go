@@ -8,7 +8,7 @@ import (
 type State struct {
 	color     rgb.RGB
 	timestamp Timestamp
-	owner     user.User
+	owner     user.Entity
 }
 
 func (state *State) SetColor(rgb rgb.RGB) {

@@ -1,16 +1,22 @@
 package user
 
-import "guestbook/entity"
+import (
+	"guestbook/entity"
+	"net/url"
+)
 
-type User struct {
-	id   entity.ID
-	plan plan
+type Entity struct {
+	id         entity.ID
+	handle     string
+	nickname   string
+	profileUrl url.URL
+	plan       plan
 }
 
-func (user *User) ID() entity.ID {
+func (user *Entity) ID() entity.ID {
 	return user.id
 }
 
-func (user *User) Plan() plan {
+func (user *Entity) Plan() plan {
 	return user.plan
 }

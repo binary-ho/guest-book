@@ -6,7 +6,7 @@ import (
 )
 
 type Message struct {
-	user      user.User
+	user      user.Entity
 	timestamp register.Timestamp
 	pixels    []PixelData
 }
