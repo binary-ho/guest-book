@@ -20,9 +20,9 @@ func (app *application) internal(writer http.ResponseWriter, request *http.Reque
 func (app *application) client(writer http.ResponseWriter, status int) {
 	statusText := http.StatusText(status)
 	if isBlank(statusText) {
-		app.logger.Error("[CLIENT ERROR - STATUS WRONG]", strconv.Itoa(status))
+		app.logger.Error("[CLIENT ERROR - STATUS WRONG]", "status", strconv.Itoa(status))
 	}
-	app.logger.Error("[CLIENT ERROR] status : ", strconv.Itoa(status))
+	app.logger.Error("[CLIENT ERROR] status", "status", strconv.Itoa(status))
 	http.Error(writer, statusText, status)
 }
 
