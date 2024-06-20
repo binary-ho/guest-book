@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 func (app *application) internal(writer http.ResponseWriter, request *http.Request, err error) {
@@ -20,6 +21,7 @@ func (app *application) internal(writer http.ResponseWriter, request *http.Reque
 func (app *application) client(writer http.ResponseWriter, status int) {
 	statusText := http.StatusText(status)
 	if isBlank(statusText) {
+		status = http.StatusNotFound
 		app.logger.Error("[CLIENT ERROR - STATUS WRONG]", "status", strconv.Itoa(status))
 	}
 	app.logger.Error("[CLIENT ERROR] status", "status", strconv.Itoa(status))
@@ -27,5 +29,5 @@ func (app *application) client(writer http.ResponseWriter, status int) {
 }
 
 func isBlank(str string) bool {
-	return str == ""
+	return strings.TrimSpace(str) == ""
 }
