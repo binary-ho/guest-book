@@ -9,6 +9,7 @@ type Entity struct {
 	id         entity.ID
 	handle     string
 	nickname   string
+	githubId   entity.ID
 	profileUrl url.URL
 	plan       plan
 }
