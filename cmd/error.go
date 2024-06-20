@@ -8,7 +8,7 @@ import (
 func (app *application) internal(writer http.ResponseWriter, request *http.Request, err error) {
 	var (
 		method = request.Method
-		uri    = request.URL.RequestURI
+		uri    = request.URL.RequestURI()
 	)
 
 	app.logger.Error("[INTERNAL ERROR] : ", err.Error(), ", method: ", method, ", uri: ", uri)
@@ -21,7 +21,7 @@ func (app *application) client(writer http.ResponseWriter, status int) {
 	if isBlank(statusText) {
 		app.logger.Error("[CLIENT ERROR] STATUS WRONG -> " + strconv.Itoa(status))
 	}
-	app.logger.Error("[CLIENT ERROR] status : ", status)
+	app.logger.Error("[CLIENT ERROR] status : ", strconv.Itoa(status))
 	http.Error(writer, statusText, status)
 }
 
