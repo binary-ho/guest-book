@@ -6,12 +6,6 @@ import (
 	"guestbook/entity"
 )
 
-type RepositoryInterface interface {
-	FindById(entity.ID) (*Entity, error)
-	ExistsByGithubId(entity.ID) bool
-	Save(Entity) error
-}
-
 type Repository struct {
 	DB *sql.DB
 }
