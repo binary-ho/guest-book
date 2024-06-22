@@ -1,8 +1,8 @@
 package user
 
 import (
+	"guestbook/common"
 	"guestbook/entity"
-	"net/url"
 )
 
 type Entity struct {
@@ -10,8 +10,19 @@ type Entity struct {
 	handle     string
 	nickname   string
 	githubId   entity.ID
-	profileUrl url.URL
+	profileUrl common.Url
 	plan       plan
+}
+
+func Create() *Entity {
+	parsedUrl, _ := common.CreateUrl("https://www.github.com/binary-ho")
+	return &Entity{
+		handle:     "binary-ho",
+		nickname:   "binary-ho",
+		githubId:   entity.ID(77),
+		profileUrl: parsedUrl,
+		plan:       FreePlan(),
+	}
 }
 
 func (user *Entity) ID() entity.ID {
