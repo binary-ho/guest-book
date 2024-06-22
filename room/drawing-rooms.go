@@ -1,6 +1,8 @@
 package room
 
-import "guestbook/entity"
+import (
+	"guestbook/entity"
+)
 
 // TODO : 추후 Redis로 관리
 type drawingRooms struct {

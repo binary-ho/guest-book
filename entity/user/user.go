@@ -1,16 +1,34 @@
 package user
 
-import "guestbook/entity"
+import (
+	"guestbook/common"
+	"guestbook/entity"
+)
 
-type User struct {
-	id   entity.ID
-	plan plan
+type Entity struct {
+	id         entity.ID
+	handle     string
+	nickname   string
+	githubId   entity.ID
+	profileUrl common.Url
+	plan       plan
 }
 
-func (user *User) ID() entity.ID {
+func Create() *Entity {
+	parsedUrl, _ := common.CreateUrl("https://www.github.com/binary-ho")
+	return &Entity{
+		handle:     "binary-ho",
+		nickname:   "binary-ho",
+		githubId:   entity.ID(77),
+		profileUrl: parsedUrl,
+		plan:       FreePlan(),
+	}
+}
+
+func (user *Entity) ID() entity.ID {
 	return user.id
 }
 
-func (user *User) Plan() plan {
+func (user *Entity) Plan() plan {
 	return user.plan
 }

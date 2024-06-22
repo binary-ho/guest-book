@@ -1,6 +1,8 @@
 package room
 
-import "guestbook/entity"
+import (
+	"guestbook/entity"
+)
 
 type DrawingRoom struct {
 	canvasId entity.ID

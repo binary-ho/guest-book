@@ -1,9 +1,9 @@
 package main
 
 import (
+	"guestbook/common/util"
 	"net/http"
 	"strconv"
-	"strings"
 )
 
 func (app *application) internal(writer http.ResponseWriter, request *http.Request, err error) {
@@ -20,14 +20,10 @@ func (app *application) internal(writer http.ResponseWriter, request *http.Reque
 
 func (app *application) client(writer http.ResponseWriter, status int) {
 	statusText := http.StatusText(status)
-	if isBlank(statusText) {
+	if util.IsBlank(statusText) {
 		status = http.StatusNotFound
 		app.logger.Error("[CLIENT ERROR - STATUS WRONG]", "status", strconv.Itoa(status))
 	}
 	app.logger.Error("[CLIENT ERROR] status", "status", strconv.Itoa(status))
 	http.Error(writer, statusText, status)
-}
-
-func isBlank(str string) bool {
-	return strings.TrimSpace(str) == ""
 }
