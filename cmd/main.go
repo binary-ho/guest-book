@@ -1,13 +1,7 @@
 package main
 
 import (
-	"log/slog"
+	_ "github.com/go-sql-driver/mysql"
 )
 
-type application struct {
-	logger *slog.Logger
-}
-
-func main() {
-
-}
+func main() {}
