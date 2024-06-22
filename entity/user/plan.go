@@ -1,6 +1,10 @@
 package user
 
-import "errors"
+import (
+	"database/sql/driver"
+	"errors"
+	"guestbook/common/util"
+)
 
 type plan struct {
 	level int8
@@ -41,21 +45,25 @@ func (plan *plan) IsEquals(another *plan) bool {
 	return plan.level == another.level
 }
 
-func (plan plan) Value() string {
-	return plan.name
+func (plan plan) Value() (driver.Value, error) {
+	if util.IsBlank(plan.name) {
+		return nil, errors.New("plan.name is empty")
+	}
+	return plan.name, nil
 }
 
 func (plan *plan) Scan(value interface{}) error {
-	result, ok := value.(string)
+	result, ok := value.([]byte)
 	if !ok {
-		return errors.New("uint type으로 형변환 불가능")
+		return errors.New("plan을 []byte type으로 형변환 불가능")
 	}
 
-	planByName, err := getPlanByName(result)
+	planName := string(result[:])
+	planByName, err := getPlanByName(planName)
 	if err != nil {
 		return err
 	}
-	plan = planByName
+	*plan = *planByName
 	return nil
 }
 
