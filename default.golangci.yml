@@ -144,7 +144,7 @@ linters-settings:
       - "-SA9004" # <https://staticcheck.io/docs/checks#SA9004>
   gocritic:
     disabled-checks:
-      - exitAfterDefer # panic is required when examines config
+      - exitAfterDefer # panic is required when examines property
 linters:
   enable:
     - errcheck # checks unchecked errors
