@@ -10,6 +10,6 @@ type Repositories struct {
 
 func (app *application) initRepositories() {
 	app.repositories = &Repositories{
-		userRepository: user.NewRepository(&app.db),
+		userRepository: user.NewRepository(app.db),
 	}
 }

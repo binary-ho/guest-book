@@ -8,7 +8,7 @@ import (
 type application struct {
 	logger *slog.Logger
 	config Config
-	db     sql.DB
+	db     *sql.DB
 
 	controllers  *controllers
 	services     *Services
@@ -19,7 +19,7 @@ func InitApplicationContext(logger *slog.Logger, config Config, db *sql.DB) *app
 	app := &application{
 		logger: logger,
 		config: config,
-		db:     *db,
+		db:     db,
 	}
 
 	app.initRepositories()
