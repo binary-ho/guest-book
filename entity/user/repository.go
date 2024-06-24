@@ -7,23 +7,27 @@ import (
 )
 
 type Repository struct {
-	DB *sql.DB
+	db *sql.DB
+}
+
+func NewRepository(db *sql.DB) *Repository {
+	return &Repository{db: db}
 }
 
 const (
-	SELECT_USER_BY_ID        = `SELECT id, handle, nickname, githubId, profileUrl, plan FROM users WHERE id = ?`
-	SELECT_USER_BY_GITHUB_ID = `SELECT id, handle, nickname, githubId, profileUrl, plan FROM users WHERE githubId = ?`
-	INSERT_USER              = `INSERT INTO users (id, handle, nickname, githubId, profileUrl, plan) VALUES (?, ?, ?, ?, ?, ?)`
-	UPDATE_USER              = `UPDATE users SET handle = ?, nickname = ?, githubId = ?, profileUrl = ?, plan = ? WHERE id = ?`
+	SelectUserById       = `SELECT id, handle, nickname, githubId, profileUrl, plan FROM users WHERE id = ?`
+	SelectUserByGithubId = `SELECT id, handle, nickname, githubId, profileUrl, plan FROM users WHERE githubId = ?`
+	InsertUser           = `INSERT INTO users (id, handle, nickname, githubId, profileUrl, plan) VALUES (?, ?, ?, ?, ?, ?)`
+	UpdateUser           = `UPDATE users SET handle = ?, nickname = ?, githubId = ?, profileUrl = ?, plan = ? WHERE id = ?`
 )
 
 func (repo *Repository) FindById(id entity.ID) (*Entity, error) {
-	row := repo.DB.QueryRow(SELECT_USER_BY_ID, int64(id))
+	row := repo.db.QueryRow(SelectUserById, int64(id))
 	return scanRow(row)
 }
 
 func (repo *Repository) ExistsByGithubId(githubId entity.ID) bool {
-	row := repo.DB.QueryRow(SELECT_USER_BY_GITHUB_ID, int64(githubId))
+	row := repo.db.QueryRow(SelectUserByGithubId, int64(githubId))
 	_, err := scanRow(row)
 	return err == nil || !errors.Is(err, sql.ErrNoRows)
 }
@@ -32,13 +36,13 @@ func (repo *Repository) Save(user Entity) (*Entity, error) {
 	if user.ID() == entity.DefaultId() {
 		return insertUser(user, repo)
 	}
-	_, err := repo.DB.Exec(UPDATE_USER, user.handle, user.nickname, user.githubId, user.profileUrl, user.plan, user.id)
+	_, err := repo.db.Exec(UpdateUser, user.handle, user.nickname, user.githubId, user.profileUrl, user.plan, user.id)
 	return &user, err
 }
 
 func insertUser(user Entity, repo *Repository) (*Entity, error) {
-	result, err := repo.DB.Exec(
-		INSERT_USER, user.id, user.handle, user.nickname, user.githubId, user.profileUrl, user.plan)
+	result, err := repo.db.Exec(
+		InsertUser, user.id, user.handle, user.nickname, user.githubId, user.profileUrl, user.plan)
 	if err != nil {
 		return nil, err
 	}

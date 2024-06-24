@@ -12,7 +12,7 @@ type plan struct {
 }
 
 const (
-	FREE  = "FREE"
+	Free  = "Free"
 	JJANG = "JJANG"
 )
 
@@ -24,13 +24,13 @@ func init() {
 	}
 
 	plans = map[string]plan{
-		FREE:  {name: FREE, level: 1},
+		Free:  {name: Free, level: 1},
 		JJANG: {name: JJANG, level: 2},
 	}
 }
 
 func FreePlan() plan {
-	return plans[FREE]
+	return plans[Free]
 }
 
 func JjangPlan() plan {
