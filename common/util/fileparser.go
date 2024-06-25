@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func fetchYAML(fileName string, config interface{}) error {
+func FetchYAML(fileName string, config interface{}) error {
 	file, err := os.ReadFile(fileName)
 	if err != nil {
 		return err
