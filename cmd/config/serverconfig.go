@@ -5,7 +5,7 @@ import (
 	"guestbook/common/util"
 )
 
-type ServerConfig struct {
+type serverConfig struct {
 	Server struct {
 		Host string `yaml:"host"`
 		Port uint   `yaml:"port"`
@@ -17,8 +17,8 @@ const (
 	serverAddressFormat = "%s:%d"
 )
 
-func getServerConfig() ServerConfig {
-	config := ServerConfig{}
+func getServerConfig() serverConfig {
+	config := serverConfig{}
 	err := util.FetchYAML(serverPropertyPath, &config)
 	if err != nil {
 		panic(err)
@@ -26,7 +26,7 @@ func getServerConfig() ServerConfig {
 	return config
 }
 
-func (config ServerConfig) ServerAddress() string {
+func (config serverConfig) ServerAddress() string {
 	host := config.Server.Host
 	port := config.Server.Port
 	return fmt.Sprintf(serverAddressFormat, host, port)

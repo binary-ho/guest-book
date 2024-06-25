@@ -5,7 +5,7 @@ import (
 	"guestbook/common/util"
 )
 
-type DbConfig struct {
+type dbConfig struct {
 	Db struct {
 		Mysql struct {
 			User     string `yaml:"user"`
@@ -25,8 +25,8 @@ const (
 	databaseAddressFormat = "%s:%s"
 )
 
-func getDbConfig() DbConfig {
-	config := DbConfig{}
+func getDbConfig() dbConfig {
+	config := dbConfig{}
 	err := util.FetchYAML(dbPropertyPath, &config)
 	if err != nil {
 		panic(err)
@@ -34,19 +34,19 @@ func getDbConfig() DbConfig {
 	return config
 }
 
-func (config DbConfig) DataSource() string {
+func (config dbConfig) DataSource() string {
 	user := config.Db.Mysql.User
 	password := config.Db.Mysql.Password
 	dbname := config.Db.Mysql.DbName
 	return fmt.Sprintf(dataSourceFormat, user, password, dbname)
 }
 
-func (config DbConfig) DatabaseAddress() string {
+func (config dbConfig) DatabaseAddress() string {
 	host := config.Db.Mysql.Host
 	port := config.Db.Mysql.Port
 	return fmt.Sprintf(databaseAddressFormat, host, port)
 }
 
-func (config DbConfig) Driver() string {
+func (config dbConfig) Driver() string {
 	return config.Db.Mysql.Driver
 }

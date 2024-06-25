@@ -1,8 +1,8 @@
 package config
 
 type ApplicationConfig struct {
-	Db           DbConfig
-	ServerConfig ServerConfig
+	Db           dbConfig
+	ServerConfig serverConfig
 }
 
 func ApplicationConfiguration() *ApplicationConfig {
