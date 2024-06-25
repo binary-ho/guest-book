@@ -1,15 +1,16 @@
-package main
+package application
 
 import (
 	"guestbook/entity/user"
 	"net/http"
 )
 
-func (app *application) routes() {
+func (app *Application) routes() *http.ServeMux {
 	controllers := app.controllers
 	serveMux := http.NewServeMux()
 
-	serveUserApis(controllers.userController, serveMux)
+	serveUserApis(controllers.UserController, serveMux)
+	return serveMux
 }
 
 func serveUserApis(controller *user.Controller, serveMux *http.ServeMux) {
